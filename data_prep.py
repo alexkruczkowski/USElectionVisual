@@ -86,14 +86,16 @@ def clean_up(dataframe: str,unique_val: str):
 def format_table(dataframe_orig: str, dataframe_join: str):
     """
     Dataframe reformatting. 
-    ,
-    create columns for each party's total votes, 
+    for table display
     
 
     Parameters 
     ----------
-    dataframe : str
-        The name of the pandas dataframe
+    dataframe_orig : str
+        The name of the original pandas dataframe
+
+    dataframe_join: str
+        The name of the df to join for electoral data
 
     Returns
     -------
@@ -117,6 +119,3 @@ def format_table(dataframe_orig: str, dataframe_join: str):
     df_output = df3[['year', 'state', 'state_winner', 'dem%', 'rep%', 'totalvotes','electoral_votes']]
 
     return(df_output)
-
-df = read_file('countypres_2000-2016.csv',FIPS_column = 'FIPS')
-print(df)
