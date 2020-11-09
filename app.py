@@ -17,6 +17,7 @@ df = dp.read_file('countypres_2000-2016.csv',FIPS_column = 'FIPS')
 df_clean = dp.clean_up(df, unique_val = 'party')
 edf = dp.read_file('Electoral_College_Votes.csv', '')
 summary_df = dp.format_table(df_clean, edf)
+pres_df = dp.read_file('President.csv', '')
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css',
     {
@@ -113,8 +114,23 @@ app.layout = html.Div(children=[
         ]
     ),
 
-    html.Br(),
-    #html.Div(id='output_container',children = []),
+    html.Div(
+        className = 'summary_container',
+        children = [
+            html.Div(
+                className = 'inside_summary',
+                children = [
+                    html.Div(
+                        className = 'summary_output',
+                        children = [
+                            html.Div(id='output_container',children = [])
+                        ]
+                    )
+                    
+                ]
+            )
+        ]
+    ),
     html.Div(
         className = "six columns",
         children = [
@@ -149,7 +165,7 @@ app.layout = html.Div(children=[
 ])
 
 @app.callback(
-    [#dash.dependencies.Output(component_id='output_container', component_property='children'),
+    [dash.dependencies.Output(component_id='output_container', component_property='children'),
      dash.dependencies.Output(component_id='example-graph', component_property='figure')
      ,dash.dependencies.Output(component_id='output_table', component_property='children')
      ],
@@ -158,6 +174,12 @@ def update_output(value):
     print(value)
     print(type(value))
 
+    pres_df_output = pres_df[pres_df['year'] == value]
+    a = (pres_df_output['year']).tolist()[0]
+    b = (pres_df_output['party']).tolist()[0]
+    c = (pres_df_output['president']).tolist()[0]
+    d = (pres_df_output['pop_vote%']).tolist()[0]
+    container = 'In {} the candidate from the {} party, {}, won the federal election with {} of the popular vote'.format(a, b, c, d)
     #container = 'You have selected "{}"'.format(value)
 
     df_year = df_clean[df_clean['year'] == value]
@@ -199,7 +221,7 @@ def update_output(value):
         ]
                                 )
 
-    return fig, table
+    return container, fig, table
 
 
 if __name__ == '__main__':

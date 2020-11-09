@@ -4,3 +4,32 @@
     table-layout: fixed;
     max-width: 99%;
 }
+
+.summary_container{
+    width:100%;
+    height:50px;
+    display:block;
+    background-color: white;
+}
+
+.inside_summary{
+    width: 90%;
+    height: 100%;
+    display: table;
+    text-align: center;
+    margin: 2rem auto 1rem auto;
+    padding-bottom: 2rem;
+}
+
+.summary_output{
+    color:#101010;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    font-family: "Montserrat";
+    font-size: 14px;
+}
+
+.results_table{
+    padding-bottom: 3rem;
+}
