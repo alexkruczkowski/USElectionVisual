@@ -174,6 +174,7 @@ def update_output(value):
     print(value)
     print(type(value))
 
+    #summary statement, who got elected
     pres_df_output = pres_df[pres_df['year'] == value]
     a = (pres_df_output['year']).tolist()[0]
     b = (pres_df_output['party']).tolist()[0]
@@ -182,6 +183,7 @@ def update_output(value):
     container = 'In {} the candidate from the {} party, {}, won the federal election with {} of the popular vote'.format(a, b, c, d)
     #container = 'You have selected "{}"'.format(value)
 
+    #map creation
     df_year = df_clean[df_clean['year'] == value]
 
     with urlopen('https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json') as response:
@@ -197,6 +199,7 @@ def update_output(value):
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0}, coloraxis_showscale=False)
     fig.show()
 
+    #table creation
     df = summary_df[summary_df['year'] == value]
    
     table = dash_table.DataTable(
